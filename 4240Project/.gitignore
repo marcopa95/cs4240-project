@@ -36,6 +36,10 @@
 ehthumbs.db
 Thumbs.db
 
+# Eclipse project files
+.classpath
+.project
+
 # Additional
 .metadata
 bin/
