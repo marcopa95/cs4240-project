@@ -1,18 +1,10 @@
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
-import javax.imageio.ImageIO;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenuBar;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JSeparator;
-import javax.swing.BoxLayout;
-import javax.swing.JMenuBar;
 
 
 public class MainGUI extends JFrame {
