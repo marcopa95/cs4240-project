@@ -56,9 +56,15 @@ public class XmlBuilder {
 		Document doc = generateDoc(filePath);
 		
 		Node parentNode = doc.getElementsByTagName(parent).item(0);
-		Element childNode = doc.createElement(tag);
-		childNode.appendChild(doc.createTextNode(value));
-		parentNode.appendChild(childNode);
+		
+		if (tag != null && tag != "") {
+			Element childNode = doc.createElement(tag);
+			childNode.appendChild(doc.createTextNode(value));
+			parentNode.appendChild(childNode);
+		}
+		else {
+			parentNode.appendChild(doc.createTextNode(value));
+		}
 		
 		writeToFile(doc, new File(filePath));
 		return true;
