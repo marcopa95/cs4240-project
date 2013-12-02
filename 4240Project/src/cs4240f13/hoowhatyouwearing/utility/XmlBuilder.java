@@ -11,7 +11,6 @@ import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
-import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -51,46 +50,75 @@ public class XmlBuilder {
 		return true;
 	}
 	
-	public static boolean addElement(String parent, String tag, String value) {
+	/**
+	 * Adds an element to the XML doc
+	 * @param tag select between "unit", "location", and "clothes"
+	 * @param childTag if tag = "clothes", put "article"; otherwise, put null or empty string
+	 * @param value the inner text value you would like to add
+	 * @return returns true if element isn't already in xml doc
+	 */
+	public static boolean addElement(String tag, String childTag, String value) {
 		String filePath = "./settings.xml";
 		Document doc = generateDoc(filePath);
 		
-		Node parentNode = doc.getElementsByTagName(parent).item(0);
+		Node parentNode = doc.getElementsByTagName(tag).item(0);
 		
-		if (tag != null && tag != "") {
-			Element childNode = doc.createElement(tag);
-			childNode.appendChild(doc.createTextNode(value));
-			parentNode.appendChild(childNode);
+		if (!doesExist(parentNode, childTag, value)) {
+			if (childTag != null && !childTag.equals("")) {
+				Element childNode = doc.createElement(childTag);
+				childNode.appendChild(doc.createTextNode(value));
+				parentNode.appendChild(childNode);
+			}
+			else {
+				parentNode.appendChild(doc.createTextNode(value));
+			}
+			
+			writeToFile(doc, new File(filePath));
+			return true;
 		}
-		else {
-			parentNode.appendChild(doc.createTextNode(value));
-		}
-		
-		writeToFile(doc, new File(filePath));
-		return true;
+		return false;
 	}
 	
-	public static boolean removeElement(String parent, String tag, String value) {
+	/**
+	 * Removes an element or text from the XML doc
+	 * @param tag select between "unit", "location", and "clothes"
+	 * @param childTag if tag = "clothes", put "article"; otherwise, put null or empty string
+	 * @param value the inner text value of the node you would like to remove
+	 * @return true on successful removal, else false
+	 */
+	public static boolean removeElement(String tag, String childTag, String value) {
 		String filePath = "./settings.xml";
 		Document doc = generateDoc(filePath);
 		
-		Node parentNode = doc.getElementsByTagName(parent).item(0);
-		NodeList children = parentNode.getChildNodes();
-		Node removedNode = null;
+		Node parentNode = doc.getElementsByTagName(tag).item(0);
 		
-		for (int i = 0; i < children.getLength(); i++) {
-			Node tempNode = children.item(i);
-			if (tempNode.getTextContent().equals(value)) {
-				removedNode = tempNode;
-				break;
+		if (childTag != null && !childTag.equals("")) {
+			NodeList children = parentNode.getChildNodes();
+			Node removedNode = null;
+			
+			for (int i = 0; i < children.getLength(); i++) {
+				Node tempNode = children.item(i);
+				if (tempNode.getTextContent().equals(value)) {
+					removedNode = tempNode;
+					break;
+				}
+			}
+			
+			if (removedNode == null) {
+				return false;
+			}
+			
+			parentNode.removeChild(removedNode);
+		}
+		else {
+			if (parentNode.getTextContent().equals(value)) {
+				Node root = parentNode.getParentNode();
+				root.replaceChild(doc.createElement(tag), parentNode);
+			}
+			else {
+				return false;
 			}
 		}
-		
-		if (removedNode == null) {
-			return false;
-		}
-		
-		parentNode.removeChild(removedNode);
 		writeToFile(doc, new File(filePath));
 		return true;
 	}
@@ -127,4 +155,20 @@ public class XmlBuilder {
 		}
 	}
 	
+	private static boolean doesExist(Node parentNode, String childTag, String value) {
+		if (childTag != null && !childTag.equals("")) {
+			NodeList nodeList = parentNode.getChildNodes();
+			if (nodeList.getLength() > 0) {
+				for (int i = 0; i < nodeList.getLength(); i++) {
+					if (nodeList.item(i).getTextContent().equals(value)) {
+						return true;
+					}
+				}
+			}
+		}
+		else if (parentNode.getTextContent().equals(value)) {
+			return true;
+		}
+		return false;
+	}
 }
