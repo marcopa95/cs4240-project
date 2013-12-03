@@ -9,38 +9,45 @@ import cs4240f13.hoowhatyouwearing.utility.ApiRequest;
 import cs4240f13.hoowhatyouwearing.utility.OutputConverter;
 import cs4240f13.hoowhatyouwearing.utility.TempUnit;
 import cs4240f13.hoowhatyouwearing.utility.XmlBuilder;
+import cs4240f13.hoowhatyouwearing.utility.XmlReader;
 
 public class User {
 	private static final User CONTEXT = new User();
-	private TempUnit temperature;
-	private String location;
-	private List clothes;
-	
-	private User() {
-		
-	}
-	
-	public static User getContext() {
-		return CONTEXT;
-	}
-	
-	private static void populate() {
-		XmlBuilder.createIfMissing();
-		// still building.
-	}
+    private static TempUnit temperature;
+    private static String location;
+    private static List<String> clothes;
+    
+    private User() {
+            XmlBuilder.createIfMissing();
+            update();
+    }
+    
+    public static User getContext() {
+            return CONTEXT;
+    }
+    
+    public void update() {
+            temperature = TempUnit.convert(XmlReader.retrieveTextElement("unit"));
+            location = XmlReader.retrieveTextElement("location").replaceAll("\\s+","");
+            clothes = XmlReader.retrieveTextElements("clothes", "article");
+    }
+    
+    public TempUnit getTemperatureUnit() {
+            return temperature;
+    }
+    
+    public String getLocation() {
+            return location;
+    }
+    
+    public List<String> getClothes() {
+            return clothes;
+    }
 	
 	public static String getCurrentTemp(String url){
 		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
 		//System.out.println(ApiRequest.get(url));
 		return ((JsonObject)e).getAsJsonObject("main").get("temp").toString();
-	}
-	
-	public String getLocation(){
-		return location;
-	}
-	
-	public void setLocation(String newLocation){
-		location = newLocation;
 	}
 	
 	public static String getCity(String url){

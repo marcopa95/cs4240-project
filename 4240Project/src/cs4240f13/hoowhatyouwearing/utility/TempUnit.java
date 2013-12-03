@@ -13,4 +13,12 @@ public enum TempUnit {
 	public String getApiKeyword() {
 		return apiKeyword;
 	}
+	
+	public static TempUnit convert(String temp) {
+		if (temp.toLowerCase().equals("fahrenheit"))
+			return TempUnit.FAHRENHEIT;
+		else {
+			return TempUnit.CELCIUS;
+		}
+	}
 }
