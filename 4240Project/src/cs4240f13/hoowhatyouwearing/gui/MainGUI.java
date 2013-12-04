@@ -9,17 +9,23 @@ import javax.swing.border.EmptyBorder;
 
 import cs4240f13.hoowhatyouwearing.objects.User;
 import javax.swing.SwingConstants;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class MainGUI extends JFrame {
 
+	private static MainGUI instance;
 	private JPanel contentPane;
+	private String strCity = SettingsGUI.getInstance().getCity();
+	//need to fix cities that have spaces & other characters in them
 	
-	private String forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Charlottesville&mode=json&units=imperial&cnt=3";
-	private String descURL = "http://api.openweathermap.org/data/2.5/weather?q=Charlottesville&mode=json&units=imperial";
-	private String cityURL = "http://api.openweathermap.org/data/2.5/find?q=Charlottesville&mode=json&units=imperial";
+	private String settingsUnits = SettingsGUI.getInstance().getUnits();
+	
+	private String forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + strCity + "&mode=json&units=" + settingsUnits + "&cnt=3";
+	private String descURL = "http://api.openweathermap.org/data/2.5/weather?q=" + strCity + "&mode=json&units=" + settingsUnits;
 
-	private String strCity = User.getCity(cityURL);
 	private String strCurrentTemp = User.getCurrentTemp(descURL);
 	private String strUnits = User.getCorF(descURL);
 	private String strDesc = User.getDescription(descURL);
@@ -55,9 +61,6 @@ public class MainGUI extends JFrame {
 		setTitle("HooWhat You Wearing?");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 755, 542);
-		
-		JMenuBar menuBar = new JMenuBar();
-		setJMenuBar(menuBar);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -178,6 +181,21 @@ public class MainGUI extends JFrame {
 		lblThreeLowUnits.setBounds(594, 272, 66, 14);
 		contentPane.add(lblThreeLowUnits);
 		
+		JButton btnSettings = new JButton("Settings");
+		btnSettings.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				try {
+					SettingsGUI settings = SettingsGUI.getInstance();
+					settings.setVisible(true);
+					setVisible(false);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+		btnSettings.setBounds(556, 433, 89, 23);
+		contentPane.add(btnSettings);
+		
 
 		
 		/*BufferedImage myPicture;
@@ -190,5 +208,13 @@ public class MainGUI extends JFrame {
 			e.printStackTrace();
 		}*/
 		
+	}
+	
+	public static synchronized MainGUI getInstance()
+	{
+		if (instance == null)
+			instance = new MainGUI();
+
+		return instance;
 	}
 }
