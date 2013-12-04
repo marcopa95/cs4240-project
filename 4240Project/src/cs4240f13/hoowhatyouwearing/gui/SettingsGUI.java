@@ -16,6 +16,7 @@ import java.awt.event.ActionEvent;
 
 public class SettingsGUI extends JFrame {
 
+	private static SettingsGUI instance;
 	private JPanel contentPane;
 	private JTextField textField;
 
@@ -34,11 +35,13 @@ public class SettingsGUI extends JFrame {
 			}
 		});
 	}
+	
+	
 
 	/**
 	 * Create the frame.
 	 */
-	public SettingsGUI() {
+	private SettingsGUI() {
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 335);
@@ -91,9 +94,6 @@ public class SettingsGUI extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lblCity.setText(textField.getText());
-				setVisible(false);
-				MainGUI main = new MainGUI();
-				main.setVisible(true);
 				
 			}
 		});
@@ -104,7 +104,7 @@ public class SettingsGUI extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					MainGUI main = new MainGUI();
+					MainGUI main = MainGUI.getInstance();
 					main.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
@@ -119,5 +119,13 @@ public class SettingsGUI extends JFrame {
 		buttonGroup.add(rdbtnCelsius);
 		buttonGroup.add(rdbtnFahrenheit);
 		
+	}
+	
+	public static synchronized SettingsGUI getInstance()
+	{
+		if (instance == null)
+			instance = new SettingsGUI();
+
+		return instance;
 	}
 }
