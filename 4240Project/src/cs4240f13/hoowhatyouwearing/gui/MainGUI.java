@@ -1,5 +1,4 @@
 package cs4240f13.hoowhatyouwearing.gui;
-import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -8,10 +7,8 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 
 import cs4240f13.hoowhatyouwearing.utility.JsonParser;
 import java.io.UnsupportedEncodingException;
@@ -29,7 +26,6 @@ public class MainGUI extends JFrame {
 	private String forecastURL;
 	private String descURL;
 
-	private JTable table;
 	private String strCurrentTemp;
 	private String strUnits;
 	private String strDesc;
@@ -214,11 +210,6 @@ public class MainGUI extends JFrame {
 		});
 		btnSettings.setBounds(556, 433, 89, 23);
 		contentPane.add(btnSettings);
-		
-		table = new JTable();
-		table.setBorder(new LineBorder(new Color(0, 0, 0)));
-		table.setBounds(6, 364, 743, -138);
-		contentPane.add(table);
 		
 
 		
