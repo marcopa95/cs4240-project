@@ -72,11 +72,11 @@ public class SettingsGUI extends JFrame {
 		contentPane.add(lblClothesYouHave);
 		
 		JLabel lblLocation = new JLabel("Current location:");
-		lblLocation.setBounds(185, 11, 89, 14);
+		lblLocation.setBounds(185, 11, 133, 14);
 		contentPane.add(lblLocation);
 		
 		textField = new JTextField();
-		textField.setBounds(312, 32, 86, 20);
+		textField.setBounds(328, 32, 118, 20);
 		contentPane.add(textField);
 		textField.setColumns(10);
 		
@@ -86,27 +86,28 @@ public class SettingsGUI extends JFrame {
 		
 		
 		
-		final JLabel lblCity = new JLabel("Charlottesville");
-		lblCity.setBounds(312, 11, 99, 14);
+		final JLabel lblCity = new JLabel(city);
+		lblCity.setBounds(328, 11, 99, 14);
 		contentPane.add(lblCity);
 		
 		JLabel lblInputNewLocation = new JLabel("Input new location:");
-		lblInputNewLocation.setBounds(185, 35, 108, 14);
+		lblInputNewLocation.setBounds(185, 35, 118, 14);
 		contentPane.add(lblInputNewLocation);
 		
-		JButton btnSubmit = new JButton("Submit");
+		JButton btnSubmit = new JButton("Submit new location");
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lblCity.setText(textField.getText());
 				city = textField.getText();
 				isFahrenheit = rdbtnFahrenheit.isSelected();
+				
 			}
 		});
-		btnSubmit.setBounds(357, 234, 89, 23);
+		btnSubmit.setBounds(296, 63, 183, 23);
 		contentPane.add(btnSubmit);
 		
-		JButton btnBack = new JButton("Back");
-		btnBack.addActionListener(new ActionListener() {
+		JButton btnOk = new JButton("OK");
+		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
 					isFahrenheit = rdbtnFahrenheit.isSelected();
@@ -118,8 +119,8 @@ public class SettingsGUI extends JFrame {
 				}
 			}
 		});
-		btnBack.setBounds(233, 234, 89, 23);
-		contentPane.add(btnBack);
+		btnOk.setBounds(233, 234, 89, 23);
+		contentPane.add(btnOk);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
 		buttonGroup.add(rdbtnCelsius);
