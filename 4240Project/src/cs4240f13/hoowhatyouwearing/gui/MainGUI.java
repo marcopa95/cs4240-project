@@ -12,28 +12,27 @@ import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.border.LineBorder;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
 
-import cs4240f13.hoowhatyouwearing.objects.User;
+import cs4240f13.hoowhatyouwearing.utility.JsonParser;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 
 
+@SuppressWarnings("serial")
 public class MainGUI extends JFrame {
 
 	private static MainGUI instance;
 	private JPanel contentPane;
-	private String strCity = SettingsGUI.getInstance().getCity();
-	//need to fix cities that have spaces & other characters in them
+	private String strCity;
+	private String settingsUnits;
 	
-	private String settingsUnits = SettingsGUI.getInstance().getUnits();
-	
-	private String forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + strCity + "&mode=json&units=" + settingsUnits + "&cnt=3";
-	private String descURL = "http://api.openweathermap.org/data/2.5/weather?q=" + strCity + "&mode=json&units=" + settingsUnits;
+	private String forecastURL;
+	private String descURL;
 
-	private String strCurrentTemp = User.getCurrentTemp(descURL);
-	private String strUnits = User.getCorF(descURL);
-	private String strDesc = User.getDescription(descURL);
 	private JTable table;
+	private String strCurrentTemp;
+	private String strUnits;
+	private String strDesc;
 	
 	/**
 	 * Launch the application.
@@ -53,13 +52,26 @@ public class MainGUI extends JFrame {
 
 	/**
 	 * Create the frame.
+	 * @throws UnsupportedEncodingException 
 	 */
-	public MainGUI() {
+	public MainGUI() throws UnsupportedEncodingException {
+		strCity = SettingsGUI.getInstance().getCity();
+		settingsUnits = SettingsGUI.getInstance().getUnits();
+		forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + URLEncoder.encode(strCity,"utf-8") + "&mode=json&units=" + settingsUnits + "&cnt=3";
+		descURL = "http://api.openweathermap.org/data/2.5/weather?q=" + URLEncoder.encode(strCity,"utf-8") + "&mode=json&units=" + settingsUnits;
+		strCurrentTemp = JsonParser.getCurrentTemp(descURL);
+		strUnits = JsonParser.getCorF(descURL);
+		strDesc = JsonParser.getCurrentDescription(descURL);
+		
 		initialize();
 	}
 	
 	private String getLowHighTemp(int day, String minOrMax, String url){
-		return User.getLowHigh(day,minOrMax,url);
+		return JsonParser.getLowHigh(day,minOrMax,url);
+	}
+	
+	private String getDayDescription(int day, String url){
+		return JsonParser.getForecastDescriptions(day,url);
 	}
 	
 	private void initialize(){
@@ -93,22 +105,23 @@ public class MainGUI extends JFrame {
 		lblCurrentDescription.setBounds(30, 64, 176, 14);
 		contentPane.add(lblCurrentDescription);
 		
-		
-		
 		JLabel lblOneHighUnits = new JLabel(strUnits);
 		lblOneHighUnits.setBounds(106, 251, 70, 14);
 		contentPane.add(lblOneHighUnits);
 		
-		JLabel lblOneDescription = new JLabel("(description)");
-		lblOneDescription.setBounds(46, 297, 108, 14);
+		JLabel lblOneDescription = new JLabel(getDayDescription(1, forecastURL));
+		lblOneDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOneDescription.setBounds(10, 297, 184, 14);
 		contentPane.add(lblOneDescription);
 		
-		JLabel lblTwoDescription = new JLabel("(description)");
-		lblTwoDescription.setBounds(256, 297, 124, 14);
+		JLabel lblTwoDescription = new JLabel(getDayDescription(2, forecastURL));
+		lblTwoDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTwoDescription.setBounds(222, 297, 184, 14);
 		contentPane.add(lblTwoDescription);
 		
-		JLabel lblThreeDescription = new JLabel("(description)");
-		lblThreeDescription.setBounds(521, 297, 111, 14);
+		JLabel lblThreeDescription = new JLabel(getDayDescription(3, forecastURL));
+		lblThreeDescription.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThreeDescription.setBounds(487, 297, 184, 14);
 		contentPane.add(lblThreeDescription);
 		
 		JLabel lblThreeDayForecast = new JLabel("3-day forecast");
@@ -117,15 +130,15 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblThreeDayForecast);
 		
 		JLabel lblDayOne = new JLabel("(Day 1)");
-		lblDayOne.setBounds(68, 322, 46, 14);
+		lblDayOne.setBounds(80, 322, 46, 14);
 		contentPane.add(lblDayOne);
 		
 		JLabel lblDayTwo = new JLabel("(Day 2)");
-		lblDayTwo.setBounds(266, 322, 46, 14);
+		lblDayTwo.setBounds(294, 322, 46, 14);
 		contentPane.add(lblDayTwo);
 		
 		JLabel lblDayThree = new JLabel("(Day 3)");
-		lblDayThree.setBounds(537, 322, 46, 14);
+		lblDayThree.setBounds(558, 322, 46, 14);
 		contentPane.add(lblDayThree);
 		
 		JLabel lblYouShouldWear = new JLabel("You should wear:");
@@ -152,7 +165,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblOneLow);
 		
 		JLabel lblOneLowUnits = new JLabel(strUnits);
-		lblOneLowUnits.setBounds(99, 272, 77, 14);
+		lblOneLowUnits.setBounds(106, 276, 77, 14);
 		contentPane.add(lblOneLowUnits);
 		
 		JLabel lblTwoHigh = new JLabel(getLowHighTemp(2,"max",forecastURL));
@@ -168,7 +181,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblTwoHighUnits);
 		
 		JLabel lblTwoLowUnits = new JLabel(strUnits);
-		lblTwoLowUnits.setBounds(315, 272, 65, 14);
+		lblTwoLowUnits.setBounds(322, 272, 65, 14);
 		contentPane.add(lblTwoLowUnits);
 		
 		JLabel lblThreeHigh = new JLabel(getLowHighTemp(3,"max",forecastURL));
@@ -184,7 +197,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblThreeHighUnits);
 		
 		JLabel lblThreeLowUnits = new JLabel(strUnits);
-		lblThreeLowUnits.setBounds(594, 272, 66, 14);
+		lblThreeLowUnits.setBounds(601, 272, 66, 14);
 		contentPane.add(lblThreeLowUnits);
 		
 		JButton btnSettings = new JButton("Settings");
@@ -221,7 +234,7 @@ public class MainGUI extends JFrame {
 		
 	}
 	
-	public static synchronized MainGUI getInstance()
+	public static synchronized MainGUI getInstance() throws UnsupportedEncodingException
 	{
 		if (instance == null)
 			instance = new MainGUI();

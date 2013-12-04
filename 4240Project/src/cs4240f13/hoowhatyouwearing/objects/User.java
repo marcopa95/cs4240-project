@@ -44,38 +44,6 @@ public class User {
             return clothes;
     }
 	
-	public static String getCurrentTemp(String url){
-		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
-		//System.out.println(ApiRequest.get(url));
-		return ((JsonObject)e).getAsJsonObject("main").get("temp").toString();
-	}
 	
-	public static String getCity(String url){
-		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
-		//System.out.println(ApiRequest.get(url));
-		return ((JsonObject)e).getAsJsonArray("list").get(0).getAsJsonObject().get("name").toString();
-		
-	}
-	
-	public static String getDescription (String url){
-		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
-		//System.out.println(ApiRequest.get(url));
-		return ((JsonObject)e).getAsJsonArray("weather").get(0).getAsJsonObject().get("description").toString();
-	}
-	
-	public static String getCorF (String url){
-		if(url.contains("imperial")){
-			return "degrees F";
-		} else {
-			return "degrees C";
-		}
-	}
-	
-	public static String getLowHigh(int day, String lowOrHigh, String url){
-		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
-		//System.out.println(ApiRequest.get(url));
-		return ((JsonObject)e).getAsJsonArray("list").get(day-1).getAsJsonObject().getAsJsonObject("temp").get(lowOrHigh).toString();
-		
-	}
 	
 }
