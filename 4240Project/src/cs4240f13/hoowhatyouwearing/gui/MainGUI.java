@@ -29,6 +29,8 @@ public class MainGUI extends JFrame {
 	private String strCurrentTemp;
 	private String strUnits;
 	private String strDesc;
+	private String strTodaysHigh;
+	private String strTodaysLow;
 	
 	/**
 	 * Launch the application.
@@ -58,6 +60,8 @@ public class MainGUI extends JFrame {
 		strCurrentTemp = JsonParser.getCurrentTemp(descURL);
 		strUnits = JsonParser.getCorF(descURL);
 		strDesc = JsonParser.getCurrentDescription(descURL);
+		strTodaysHigh = JsonParser.getTodaysHigh(descURL);
+		strTodaysLow = JsonParser.getTodaysLow(descURL);
 		
 		initialize();
 	}
@@ -79,9 +83,9 @@ public class MainGUI extends JFrame {
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
-		JLabel lblTodaysWeather = new JLabel("Today's weather for:");
-		lblTodaysWeather.setBounds(30, 11, 124, 14);
-		contentPane.add(lblTodaysWeather);
+		JLabel lblCurrentWeather = new JLabel("Current weather for:");
+		lblCurrentWeather.setBounds(30, 11, 124, 14);
+		contentPane.add(lblCurrentWeather);
 		
 		JLabel lblCity = new JLabel(strCity);
 		lblCity.setBounds(164, 11, 91, 14);
@@ -89,7 +93,7 @@ public class MainGUI extends JFrame {
 		
 		JLabel lblCurrentTemp = new JLabel(strCurrentTemp);
 		lblCurrentTemp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblCurrentTemp.setBounds(22, 39, 92, 14);
+		lblCurrentTemp.setBounds(61, 39, 65, 14);
 		contentPane.add(lblCurrentTemp);
 		
 		JLabel lblCurrentUnits = new JLabel(strUnits);
@@ -102,17 +106,17 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblCurrentDescription);
 		
 		JLabel lblOneHighUnits = new JLabel(strUnits);
-		lblOneHighUnits.setBounds(106, 251, 70, 14);
+		lblOneHighUnits.setBounds(177, 251, 70, 14);
 		contentPane.add(lblOneHighUnits);
 		
 		JLabel lblOneDescription = new JLabel(getDayDescription(1, forecastURL));
 		lblOneDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOneDescription.setBounds(10, 297, 184, 14);
+		lblOneDescription.setBounds(81, 297, 184, 14);
 		contentPane.add(lblOneDescription);
 		
 		JLabel lblTwoDescription = new JLabel(getDayDescription(2, forecastURL));
 		lblTwoDescription.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTwoDescription.setBounds(222, 297, 184, 14);
+		lblTwoDescription.setBounds(293, 297, 184, 14);
 		contentPane.add(lblTwoDescription);
 		
 		JLabel lblThreeDescription = new JLabel(getDayDescription(3, forecastURL));
@@ -125,11 +129,11 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblThreeDayForecast);
 		
 		JLabel lblDayOne = new JLabel("(Day 1)");
-		lblDayOne.setBounds(80, 322, 46, 14);
+		lblDayOne.setBounds(151, 322, 46, 14);
 		contentPane.add(lblDayOne);
 		
 		JLabel lblDayTwo = new JLabel("(Day 2)");
-		lblDayTwo.setBounds(294, 322, 46, 14);
+		lblDayTwo.setBounds(365, 322, 46, 14);
 		contentPane.add(lblDayTwo);
 		
 		JLabel lblDayThree = new JLabel("(Day 3)");
@@ -152,31 +156,31 @@ public class MainGUI extends JFrame {
 		panel.add(lblpicturesOfClothing);
 		
 		JLabel lblOneHigh = new JLabel(getLowHighTemp(1,"max",forecastURL));
-		lblOneHigh.setBounds(26, 251, 70, 14);
+		lblOneHigh.setBounds(97, 251, 70, 14);
 		contentPane.add(lblOneHigh);
 		
 		JLabel lblOneLow = new JLabel(getLowHighTemp(1,"min",forecastURL));
-		lblOneLow.setBounds(26, 272, 70, 14);
+		lblOneLow.setBounds(97, 272, 70, 14);
 		contentPane.add(lblOneLow);
 		
 		JLabel lblOneLowUnits = new JLabel(strUnits);
-		lblOneLowUnits.setBounds(106, 276, 77, 14);
+		lblOneLowUnits.setBounds(177, 276, 77, 14);
 		contentPane.add(lblOneLowUnits);
 		
 		JLabel lblTwoHigh = new JLabel(getLowHighTemp(2,"max",forecastURL));
-		lblTwoHigh.setBounds(242, 251, 70, 14);
+		lblTwoHigh.setBounds(313, 251, 70, 14);
 		contentPane.add(lblTwoHigh);
 		
 		JLabel lblTwoLow = new JLabel(getLowHighTemp(2,"min",forecastURL));
-		lblTwoLow.setBounds(242, 272, 70, 14);
+		lblTwoLow.setBounds(313, 272, 70, 14);
 		contentPane.add(lblTwoLow);
 		
 		JLabel lblTwoHighUnits = new JLabel(strUnits);
-		lblTwoHighUnits.setBounds(322, 251, 84, 14);
+		lblTwoHighUnits.setBounds(393, 251, 84, 14);
 		contentPane.add(lblTwoHighUnits);
 		
 		JLabel lblTwoLowUnits = new JLabel(strUnits);
-		lblTwoLowUnits.setBounds(322, 272, 65, 14);
+		lblTwoLowUnits.setBounds(393, 272, 65, 14);
 		contentPane.add(lblTwoLowUnits);
 		
 		JLabel lblThreeHigh = new JLabel(getLowHighTemp(3,"max",forecastURL));
@@ -209,6 +213,40 @@ public class MainGUI extends JFrame {
 		});
 		btnSettings.setBounds(556, 433, 89, 23);
 		contentPane.add(btnSettings);
+		
+		JLabel lblTodaysHigh = new JLabel("Today's high:");
+		lblTodaysHigh.setBounds(262, 39, 77, 14);
+		contentPane.add(lblTodaysHigh);
+		
+		JLabel lblTodaysLow = new JLabel("Today's low:");
+		lblTodaysLow.setBounds(261, 64, 79, 14);
+		contentPane.add(lblTodaysLow);
+		
+		JLabel lblTodaysHighUnits = new JLabel(strUnits);
+		lblTodaysHighUnits.setBounds(413, 39, 84, 14);
+		contentPane.add(lblTodaysHighUnits);
+		
+		JLabel lblTodaysLowUnits = new JLabel(strUnits);
+		lblTodaysLowUnits.setBounds(413, 64, 84, 14);
+		contentPane.add(lblTodaysLowUnits);
+		
+		JLabel lblTodaysHighTemp = new JLabel(strTodaysHigh);
+		lblTodaysHighTemp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTodaysHighTemp.setBounds(341, 39, 52, 14);
+		contentPane.add(lblTodaysHighTemp);
+		
+		JLabel lblTodaysLowTemp = new JLabel(strTodaysLow);
+		lblTodaysLowTemp.setHorizontalAlignment(SwingConstants.CENTER);
+		lblTodaysLowTemp.setBounds(341, 64, 52, 14);
+		contentPane.add(lblTodaysLowTemp);
+		
+		JLabel lblHighs = new JLabel("Highs:");
+		lblHighs.setBounds(10, 251, 46, 14);
+		contentPane.add(lblHighs);
+		
+		JLabel lblLows = new JLabel("Lows:");
+		lblLows.setBounds(10, 272, 46, 14);
+		contentPane.add(lblLows);
 		
 
 		
