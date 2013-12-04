@@ -18,12 +18,14 @@ public class MainGUI extends JFrame {
 
 	private static MainGUI instance;
 	private JPanel contentPane;
+	private String strCity = SettingsGUI.getInstance().getCity();
+	//need to fix cities that have spaces & other characters in them
 	
-	private String forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=Charlottesville&mode=json&units=imperial&cnt=3";
-	private String descURL = "http://api.openweathermap.org/data/2.5/weather?q=Charlottesville&mode=json&units=imperial";
-	private String cityURL = "http://api.openweathermap.org/data/2.5/find?q=Charlottesville&mode=json&units=imperial";
+	private String settingsUnits = SettingsGUI.getInstance().getUnits();
+	
+	private String forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + strCity + "&mode=json&units=" + settingsUnits + "&cnt=3";
+	private String descURL = "http://api.openweathermap.org/data/2.5/weather?q=" + strCity + "&mode=json&units=" + settingsUnits;
 
-	private String strCity = User.getCity(cityURL);
 	private String strCurrentTemp = User.getCurrentTemp(descURL);
 	private String strUnits = User.getCorF(descURL);
 	private String strDesc = User.getDescription(descURL);

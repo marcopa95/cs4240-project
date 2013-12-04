@@ -19,6 +19,8 @@ public class SettingsGUI extends JFrame {
 	private static SettingsGUI instance;
 	private JPanel contentPane;
 	private JTextField textField;
+	private String city = "Charlottesville";
+	private boolean isFahrenheit = true;
 
 	/**
 	 * Launch the application.
@@ -58,10 +60,12 @@ public class SettingsGUI extends JFrame {
 		rdbtnCelsius.setBounds(21, 31, 109, 23);
 		contentPane.add(rdbtnCelsius);
 		
-		JRadioButton rdbtnFahrenheit = new JRadioButton("Fahrenheit");
+		final JRadioButton rdbtnFahrenheit = new JRadioButton("Fahrenheit");
 		rdbtnFahrenheit.setBounds(22, 57, 109, 23);
 		rdbtnFahrenheit.setSelected(true);
 		contentPane.add(rdbtnFahrenheit);
+		
+		
 		
 		JLabel lblClothesYouHave = new JLabel("Clothes you have:");
 		lblClothesYouHave.setBounds(22, 104, 108, 14);
@@ -94,7 +98,8 @@ public class SettingsGUI extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lblCity.setText(textField.getText());
-				
+				city = textField.getText();
+				isFahrenheit = rdbtnFahrenheit.isSelected();
 			}
 		});
 		btnSubmit.setBounds(357, 234, 89, 23);
@@ -104,7 +109,8 @@ public class SettingsGUI extends JFrame {
 		btnBack.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					MainGUI main = MainGUI.getInstance();
+					isFahrenheit = rdbtnFahrenheit.isSelected();
+					MainGUI main = new MainGUI();
 					main.setVisible(true);
 					setVisible(false);
 				} catch (Exception e) {
@@ -127,5 +133,17 @@ public class SettingsGUI extends JFrame {
 			instance = new SettingsGUI();
 
 		return instance;
+	}
+	
+	public String getCity(){
+		return city;
+	}
+	
+	public String getUnits(){
+		if(isFahrenheit){
+			return "imperial";
+		} else {
+			return "metric";
+		}
 	}
 }
