@@ -1,17 +1,21 @@
 package cs4240f13.hoowhatyouwearing.gui;
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
+import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JMenuBar;
 import javax.swing.JPanel;
+import javax.swing.JTable;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.TableModel;
 
 import cs4240f13.hoowhatyouwearing.objects.User;
-import javax.swing.SwingConstants;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 
 
 public class MainGUI extends JFrame {
@@ -29,6 +33,7 @@ public class MainGUI extends JFrame {
 	private String strCurrentTemp = User.getCurrentTemp(descURL);
 	private String strUnits = User.getCorF(descURL);
 	private String strDesc = User.getDescription(descURL);
+	private JTable table;
 	
 	/**
 	 * Launch the application.
@@ -107,7 +112,8 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblThreeDescription);
 		
 		JLabel lblThreeDayForecast = new JLabel("3-day forecast");
-		lblThreeDayForecast.setBounds(256, 199, 84, 14);
+		lblThreeDayForecast.setHorizontalAlignment(SwingConstants.CENTER);
+		lblThreeDayForecast.setBounds(0, 199, 755, 14);
 		contentPane.add(lblThreeDayForecast);
 		
 		JLabel lblDayOne = new JLabel("(Day 1)");
@@ -138,7 +144,7 @@ public class MainGUI extends JFrame {
 		panel.add(lblpicturesOfClothing);
 		
 		JLabel lblOneHigh = new JLabel(getLowHighTemp(1,"max",forecastURL));
-		lblOneHigh.setBounds(26, 251, 70, 14);
+		lblOneHigh.setBounds(24, 251, 70, 14);
 		contentPane.add(lblOneHigh);
 		
 		JLabel lblOneLow = new JLabel(getLowHighTemp(1,"min",forecastURL));
@@ -195,6 +201,11 @@ public class MainGUI extends JFrame {
 		});
 		btnSettings.setBounds(556, 433, 89, 23);
 		contentPane.add(btnSettings);
+		
+		table = new JTable();
+		table.setBorder(new LineBorder(new Color(0, 0, 0)));
+		table.setBounds(6, 364, 743, -138);
+		contentPane.add(table);
 		
 
 		
