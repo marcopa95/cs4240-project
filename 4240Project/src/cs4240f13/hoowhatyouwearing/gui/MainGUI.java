@@ -10,7 +10,9 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import cs4240f13.hoowhatyouwearing.utility.JsonParser;
+import cs4240f13.hoowhatyouwearing.utility.RequestParser;
+import cs4240f13.hoowhatyouwearing.utility.URLBuilder;
+
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
@@ -53,28 +55,30 @@ public class MainGUI extends JFrame {
 	 * @throws UnsupportedEncodingException 
 	 */
 	public MainGUI() throws UnsupportedEncodingException {
-		strCity = SettingsGUI.getInstance().getCity();
-		settingsUnits = SettingsGUI.getInstance().getUnits();
-		forecastURL = "http://api.openweathermap.org/data/2.5/forecast/daily?q=" + URLEncoder.encode(strCity,"utf-8") + "&mode=json&units=" + settingsUnits + "&cnt=3";
-		descURL = "http://api.openweathermap.org/data/2.5/weather?q=" + URLEncoder.encode(strCity,"utf-8") + "&mode=json&units=" + settingsUnits;
-		strCurrentTemp = JsonParser.getCurrentTemp(descURL);
-		strUnits = JsonParser.getCorF(descURL);
-		strDesc = JsonParser.getCurrentDescription(descURL);
-		strTodaysHigh = JsonParser.getTodaysHigh(descURL);
-		strTodaysLow = JsonParser.getTodaysLow(descURL);
 		
 		initialize();
 	}
 	
 	private String getLowHighTemp(int day, String minOrMax, String url){
-		return JsonParser.getLowHigh(day,minOrMax,url);
+		return RequestParser.getLowHigh(day,minOrMax,url);
 	}
 	
 	private String getDayDescription(int day, String url){
-		return JsonParser.getForecastDescriptions(day,url);
+		return RequestParser.getForecastDescriptions(day,url);
 	}
 	
-	private void initialize(){
+	private void initialize() throws UnsupportedEncodingException{
+		
+		strCity = SettingsGUI.getInstance().getCity();
+		settingsUnits = SettingsGUI.getInstance().getUnits();
+		forecastURL = URLBuilder.buildForecastURL(strCity, settingsUnits);
+		descURL = URLBuilder.buildTodayURL(strCity, settingsUnits);
+		strCurrentTemp = RequestParser.getCurrentTemp(descURL);
+		strUnits = RequestParser.getCorF(descURL);
+		strDesc = RequestParser.getCurrentDescription(descURL);
+		strTodaysHigh = RequestParser.getTodaysHigh(descURL);
+		strTodaysLow = RequestParser.getTodaysLow(descURL);
+		
 		setTitle("HooWhat You Wearing?");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 755, 542);

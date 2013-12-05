@@ -19,7 +19,7 @@ public class SettingsGUI extends JFrame {
 	private static SettingsGUI instance;
 	private JPanel contentPane;
 	private JTextField textField;
-	private String city = "Charlottesville";
+	private String city = "London";
 	private boolean isFahrenheit = true;
 
 	/**

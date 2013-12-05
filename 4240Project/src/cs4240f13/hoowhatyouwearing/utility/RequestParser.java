@@ -3,7 +3,7 @@ package cs4240f13.hoowhatyouwearing.utility;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-public class JsonParser {
+public class RequestParser {
 	
 	public static String getCurrentTemp(String url){
 		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
@@ -31,6 +31,7 @@ public class JsonParser {
 		return ((JsonObject)e).getAsJsonArray("weather").get(0).getAsJsonObject().get("description").toString();
 	}
 	
+	//could possibly move? doesn't deal with API request
 	public static String getCorF (String url){
 		if(url.contains("imperial")){
 			return "degrees F";
