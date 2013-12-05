@@ -10,6 +10,16 @@ public class JsonParser {
 		return ((JsonObject)e).getAsJsonObject("main").get("temp").toString();
 	}
 	
+	public static String getTodaysHigh(String url){
+		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
+		return ((JsonObject)e).getAsJsonObject("main").get("temp_max").toString();
+	}
+	
+	public static String getTodaysLow(String url){
+		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
+		return ((JsonObject)e).getAsJsonObject("main").get("temp_min").toString();
+	}
+	
 	public static String getCity(String url){
 		JsonElement e = OutputConverter.jsonify(ApiRequest.get(url));
 		return ((JsonObject)e).getAsJsonArray("list").get(0).getAsJsonObject().get("name").toString();
