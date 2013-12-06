@@ -35,21 +35,16 @@ public class ClothingList {
 		}
 		return list;
 	}
-	public static void main(String[] args) {
-		ClothingList clothing = new ClothingList();
-		
-		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
-		
-		//clothing.listClothing();
-		
-		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.LONGSLEEVET);
-		
-		//clothing.removeClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
-		
-		System.out.println(clothing.listClothing());
-		
-		//Article.Clothing.SHOES.setOffset();
-		//System.out.println(Article.Clothing.TSHIRT.getOffset());
+	
+	public String getClothing(Article.ArticleType ArticleType, Article.Clothing Article){
+		Article temp = null;
+		for(int i=0;i<array.size();i++){
+			if(array.get(i).getArticle() == Article && array.get(i).getArticleType() == ArticleType)
+				temp = array.get(i);
 		}
+		String article = temp.getArticleType() + ": " + temp.getArticle();
+		
+		return article;
+	}
 	}
 

@@ -10,6 +10,7 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import cs4240f13.hoowhatyouwearing.objects.Article;
 import cs4240f13.hoowhatyouwearing.utility.RequestParser;
 import cs4240f13.hoowhatyouwearing.utility.URLBuilder;
 
@@ -149,8 +150,8 @@ public class MainGUI extends JFrame {
 		lblYouShouldWear.setBounds(556, 11, 104, 14);
 		contentPane.add(lblYouShouldWear);
 		
-		JLabel lblclothingToWear = new JLabel(SettingsGUI.getClothing().listClothing());
-		lblclothingToWear.setBounds(556, 39, 104, 14);
+		JLabel lblclothingToWear = new JLabel(SettingsGUI.getClothing().getClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT));
+		lblclothingToWear.setBounds(531, 39, 198, 48);
 		contentPane.add(lblclothingToWear);
 		
 		JLabel lblOneHigh = new JLabel(getLowHighTemp(1,"max",forecastURL));
