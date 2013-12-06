@@ -10,8 +10,7 @@ public class ClothingList {
 	
 	}
 	
-	
-	public void addClothing(String ArticleType, String Article){
+	public void addClothing(Article.ArticleType ArticleType, Article.Clothing Article){
 		Article article = new Article(ArticleType, Article);
 		array.add(article);
 	}

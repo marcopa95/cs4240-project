@@ -1,18 +1,30 @@
 package cs4240f13.hoowhatyouwearing.objects;
 
+
 public class Article {
 	
-	private String ArticleType; //Examples: Top, Bottom, Outerwear, Shoes
-	private String Clothing; //Example: T-shirt, Pants, Rainjacket, Flip-Flops
-	public Article(String Type, String clothing){
-		ArticleType = Type;
-		Clothing = clothing;
+	public enum ArticleType{
+		TOP, BOTTOMS, OUTERWEAR, SHOES;
 	}
-	public String getArticleType(){
-		return ArticleType;
+
+	
+	public enum Clothing{
+		TSHIRT, LONGLSEEVET, SWEATER, WINTERJACKET, RAINJACKET, PANTS, SHORTS, FLIPFLOPS, SHOES;
 	}
 	
-	public String getArticle(){
-		return Clothing;
+	private ArticleType article; 
+	private Clothing clothing; //Example: T-shirt, Pants, Rainjacket, Flip-Flops
+	
+	public Article(ArticleType Type, Clothing clothes){
+		article = Type;
+		clothing = clothes;
+	}
+	
+	public ArticleType getArticleType(){
+		return article;
+	}
+	
+	public Clothing getArticle(){
+		return clothing;
 	}
 }
