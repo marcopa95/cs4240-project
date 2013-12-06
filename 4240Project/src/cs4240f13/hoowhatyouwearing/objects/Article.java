@@ -1,18 +1,18 @@
 package cs4240f13.hoowhatyouwearing.objects;
 
 
-public class Article {
+public class Article implements Comparable {
 	
 	public enum ArticleType{
 		TOP, BOTTOMS, OUTERWEAR, RAINGEAR, FOOTWEAR;
 	}
 
 	public enum Clothing{
-		TSHIRT(1), LONGSLEEVET(2), // tops
-		SWEATER(3), WINTERJACKET(4), // outerwear
-		RAINJACKET(5), // special weather
-		SHORTS(6), PANTS(7), // bottoms
-		FLIPFLOPS(8), SHOES(9); // footwear
+		TSHIRT(30), LONGSLEEVET(40), // tops
+		SWEATER(40), WINTERJACKET(60), // outerwear
+		RAINJACKET(30), // special weather
+		SHORTS(30), PANTS(50), // bottoms
+		FLIPFLOPS(10), SHOES(50); // footwear
 		
 		private int offset;
 		
@@ -39,5 +39,11 @@ public class Article {
 	
 	public Clothing getArticle(){
 		return clothing;
+	}
+
+	@Override
+	public int compareTo(Object arg0) {
+		Article compared = (Article) arg0;
+		return this.getArticle().getOffset() - compared.getArticle().getOffset();
 	}
 }

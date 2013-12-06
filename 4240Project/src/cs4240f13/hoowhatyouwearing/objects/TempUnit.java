@@ -1,4 +1,4 @@
-package cs4240f13.hoowhatyouwearing;
+package cs4240f13.hoowhatyouwearing.objects;
 
 public enum TempUnit {
 	FAHRENHEIT("imperial"),

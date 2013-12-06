@@ -5,7 +5,6 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import cs4240f13.hoowhatyouwearing.TempUnit;
 import cs4240f13.hoowhatyouwearing.utility.ApiRequest;
 import cs4240f13.hoowhatyouwearing.utility.OutputConverter;
 import cs4240f13.hoowhatyouwearing.utility.XmlBuilder;

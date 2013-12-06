@@ -46,5 +46,9 @@ public class ClothingList {
 		
 		return article;
 	}
+	
+	public ArrayList<Article> getClothes() {
+		return array;
+	}
 }
 
