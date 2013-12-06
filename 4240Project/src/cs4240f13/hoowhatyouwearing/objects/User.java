@@ -27,7 +27,7 @@ public class User {
     
     public void update() {
         temperature = TempUnit.convert(XmlReader.retrieveTextElement("unit"));
-        location = XmlReader.retrieveTextElement("location").replaceAll("\\s+","");
+        location = XmlReader.retrieveTextElement("location");
         clothes = XmlReader.retrieveTextElements("clothes", "article");
     }
     
