@@ -1,4 +1,4 @@
-package cs4240f13.hoowhatyouwearing.utility;
+package cs4240f13.hoowhatyouwearing;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;

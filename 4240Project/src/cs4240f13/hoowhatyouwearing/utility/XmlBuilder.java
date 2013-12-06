@@ -36,9 +36,11 @@ public class XmlBuilder {
 		
 		// second level elements
 		Element unit = doc.createElement("unit");
+		unit.appendChild(doc.createTextNode("fahrenheit"));
 		root.appendChild(unit);
 		
 		Element location = doc.createElement("location");
+		location.appendChild(doc.createTextNode("London"));
 		root.appendChild(location);
 		
 		Element clothes = doc.createElement("clothes");

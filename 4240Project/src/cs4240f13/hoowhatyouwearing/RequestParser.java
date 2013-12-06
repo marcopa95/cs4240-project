@@ -1,7 +1,10 @@
-package cs4240f13.hoowhatyouwearing.utility;
+package cs4240f13.hoowhatyouwearing;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+
+import cs4240f13.hoowhatyouwearing.utility.ApiRequest;
+import cs4240f13.hoowhatyouwearing.utility.OutputConverter;
 
 public class RequestParser {
 	

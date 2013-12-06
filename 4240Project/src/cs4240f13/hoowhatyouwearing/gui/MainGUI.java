@@ -10,9 +10,11 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import cs4240f13.hoowhatyouwearing.RequestParser;
+import cs4240f13.hoowhatyouwearing.URLBuilder;
 import cs4240f13.hoowhatyouwearing.objects.Article;
-import cs4240f13.hoowhatyouwearing.utility.RequestParser;
-import cs4240f13.hoowhatyouwearing.utility.URLBuilder;
+import cs4240f13.hoowhatyouwearing.objects.User;
+import cs4240f13.hoowhatyouwearing.utility.XmlBuilder;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
@@ -69,9 +71,10 @@ public class MainGUI extends JFrame {
 	}
 	
 	private void initialize() throws UnsupportedEncodingException{
-		
-		strCity = SettingsGUI.getInstance().getCity();
-		settingsUnits = SettingsGUI.getInstance().getUnits();
+		User user = User.getContext();
+		user.update();
+		strCity =  user.getLocation(); //SettingsGUI.getInstance().getCity();
+		settingsUnits = user.getTemperatureUnit().getApiKeyword(); //SettingsGUI.getInstance().getUnits();
 		forecastURL = URLBuilder.buildForecastURL(strCity, settingsUnits);
 		descURL = URLBuilder.buildTodayURL(strCity, settingsUnits);
 		strCurrentTemp = RequestParser.getCurrentTemp(descURL);

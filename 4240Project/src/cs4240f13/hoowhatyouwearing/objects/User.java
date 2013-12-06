@@ -5,9 +5,9 @@ import java.util.List;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import cs4240f13.hoowhatyouwearing.TempUnit;
 import cs4240f13.hoowhatyouwearing.utility.ApiRequest;
 import cs4240f13.hoowhatyouwearing.utility.OutputConverter;
-import cs4240f13.hoowhatyouwearing.utility.TempUnit;
 import cs4240f13.hoowhatyouwearing.utility.XmlBuilder;
 import cs4240f13.hoowhatyouwearing.utility.XmlReader;
 
@@ -18,32 +18,42 @@ public class User {
     private static List<String> clothes;
     
     private User() {
-            XmlBuilder.createIfMissing();
-            update();
+        XmlBuilder.createIfMissing();
+        update();
     }
     
     public static User getContext() {
-            return CONTEXT;
+        return CONTEXT;
     }
     
     public void update() {
-            temperature = TempUnit.convert(XmlReader.retrieveTextElement("unit"));
-            location = XmlReader.retrieveTextElement("location").replaceAll("\\s+","");
-            clothes = XmlReader.retrieveTextElements("clothes", "article");
+        temperature = TempUnit.convert(XmlReader.retrieveTextElement("unit"));
+        location = XmlReader.retrieveTextElement("location").replaceAll("\\s+","");
+        clothes = XmlReader.retrieveTextElements("clothes", "article");
     }
     
     public TempUnit getTemperatureUnit() {
-            return temperature;
+        return temperature;
     }
     
     public String getLocation() {
-            return location;
+        return location;
     }
     
     public List<String> getClothes() {
-            return clothes;
+        return clothes;
     }
-	
-	
+    
+    public void setTemperatureUnit(String unit) {
+    	XmlBuilder.removeElement("unit", null, temperature.toString().toLowerCase());
+    	XmlBuilder.addElement("unit", null, unit);
+    	temperature = TempUnit.convert(unit);
+    }
+    
+    public void setLocation(String city) {
+    	XmlBuilder.removeElement("location", null, location);
+    	XmlBuilder.addElement("location", null, city);
+    	location = city;
+    }
 	
 }

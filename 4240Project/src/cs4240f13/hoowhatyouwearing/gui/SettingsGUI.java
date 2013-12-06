@@ -1,5 +1,4 @@
 package cs4240f13.hoowhatyouwearing.gui;
-import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -14,11 +13,11 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
-import javax.swing.JTextPane;
 import javax.swing.JTextArea;
 
 import cs4240f13.hoowhatyouwearing.objects.Article;
 import cs4240f13.hoowhatyouwearing.objects.ClothingList;
+import cs4240f13.hoowhatyouwearing.objects.User;
 
 
 public class SettingsGUI extends JFrame {
@@ -26,8 +25,6 @@ public class SettingsGUI extends JFrame {
 	private static SettingsGUI instance;
 	private JPanel contentPane;
 	private JTextField textField;
-	private String city = "London";
-	private boolean isFahrenheit = true;
 
 	/**
 	 * Launch the application.
@@ -51,6 +48,8 @@ public class SettingsGUI extends JFrame {
 	 * Create the frame.
 	 */
 	private SettingsGUI() {
+		final User user = User.getContext();
+		
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 536, 335);
@@ -94,7 +93,7 @@ public class SettingsGUI extends JFrame {
 		
 		
 		
-		final JLabel lblCity = new JLabel(city);
+		final JLabel lblCity = new JLabel(user.getLocation());
 		lblCity.setBounds(328, 11, 99, 14);
 		contentPane.add(lblCity);
 		
@@ -106,9 +105,13 @@ public class SettingsGUI extends JFrame {
 		btnSubmit.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				lblCity.setText(textField.getText());
-				city = textField.getText();
-				isFahrenheit = rdbtnFahrenheit.isSelected();
-				
+				user.setLocation(textField.getText());
+				if (rdbtnFahrenheit.isSelected()) {
+					user.setTemperatureUnit("fahrenheit"); 
+				}
+				else {
+					user.setTemperatureUnit("celcius");
+				}
 			}
 		});
 		btnSubmit.setBounds(296, 63, 183, 23);
@@ -118,7 +121,12 @@ public class SettingsGUI extends JFrame {
 		btnOk.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				try {
-					isFahrenheit = rdbtnFahrenheit.isSelected();
+					if (rdbtnFahrenheit.isSelected()) {
+						user.setTemperatureUnit("fahrenheit"); 
+					}
+					else {
+						user.setTemperatureUnit("celcius");
+					}
 					MainGUI main = new MainGUI();
 					main.setVisible(true);
 					setVisible(false);
@@ -139,7 +147,6 @@ public class SettingsGUI extends JFrame {
 		JTextArea textArea = new JTextArea();
 		textArea.setBounds(10, 164, 118, 104);
 		contentPane.add(textArea);
-		String poop = "poop";
 		textArea.setEditable(false);
 		textArea.setText(getClothing().listClothing());
 	}
@@ -152,21 +159,17 @@ public class SettingsGUI extends JFrame {
 		return instance;
 	}
 	
-	public String getCity(){
-		return city;
-	}
-	
-	public String getUnits(){
-		if(isFahrenheit){
-			return "imperial";
-		} else {
-			return "metric";
-		}
-	}
 	public static ClothingList getClothing(){
 		ClothingList clothing = new ClothingList();
 		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
 		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.LONGSLEEVET);
+		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.SWEATER);
+		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.WINTERJACKET);
+		clothing.addClothing(Article.ArticleType.RAINGEAR, Article.Clothing.RAINJACKET);
+		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.SHORTS);
+		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.PANTS);
+		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.FLIPFLOPS);
+		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.SHOES);
 		return clothing;
 	}
 }

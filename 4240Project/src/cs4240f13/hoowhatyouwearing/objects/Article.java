@@ -4,7 +4,7 @@ package cs4240f13.hoowhatyouwearing.objects;
 public class Article {
 	
 	public enum ArticleType{
-		TOP, BOTTOMS, OUTERWEAR, FOOTWEAR;
+		TOP, BOTTOMS, OUTERWEAR, RAINGEAR, FOOTWEAR;
 	}
 
 	public enum Clothing{
