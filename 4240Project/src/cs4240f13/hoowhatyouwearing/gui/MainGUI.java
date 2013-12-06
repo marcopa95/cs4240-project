@@ -149,16 +149,9 @@ public class MainGUI extends JFrame {
 		lblYouShouldWear.setBounds(556, 11, 104, 14);
 		contentPane.add(lblYouShouldWear);
 		
-		JLabel lblclothingToWear = new JLabel("(clothing to wear)");
+		JLabel lblclothingToWear = new JLabel(SettingsGUI.getClothing().listClothing());
 		lblclothingToWear.setBounds(556, 39, 104, 14);
 		contentPane.add(lblclothingToWear);
-		
-		JPanel panel = new JPanel();
-		panel.setBounds(541, 68, 119, 79);
-		contentPane.add(panel);
-		
-		JLabel lblpicturesOfClothing = new JLabel("(pictures of clothing)");
-		panel.add(lblpicturesOfClothing);
 		
 		JLabel lblOneHigh = new JLabel(getLowHighTemp(1,"max",forecastURL));
 		lblOneHigh.setBounds(72, 251, 70, 14);

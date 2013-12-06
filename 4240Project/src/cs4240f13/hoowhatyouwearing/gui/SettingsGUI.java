@@ -10,8 +10,15 @@ import javax.swing.JLabel;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+
+import javax.swing.JTextPane;
+import javax.swing.JTextArea;
+
+import cs4240f13.hoowhatyouwearing.objects.Article;
+import cs4240f13.hoowhatyouwearing.objects.ClothingList;
 
 
 public class SettingsGUI extends JFrame {
@@ -71,6 +78,7 @@ public class SettingsGUI extends JFrame {
 		lblClothesYouHave.setBounds(22, 104, 108, 14);
 		contentPane.add(lblClothesYouHave);
 		
+		
 		JLabel lblLocation = new JLabel("Current location:");
 		lblLocation.setBounds(185, 11, 133, 14);
 		contentPane.add(lblLocation);
@@ -126,6 +134,14 @@ public class SettingsGUI extends JFrame {
 		buttonGroup.add(rdbtnCelsius);
 		buttonGroup.add(rdbtnFahrenheit);
 		
+
+		
+		JTextArea textArea = new JTextArea();
+		textArea.setBounds(10, 164, 118, 104);
+		contentPane.add(textArea);
+		String poop = "poop";
+		textArea.setEditable(false);
+		textArea.setText(getClothing().listClothing());
 	}
 	
 	public static synchronized SettingsGUI getInstance()
@@ -146,5 +162,11 @@ public class SettingsGUI extends JFrame {
 		} else {
 			return "metric";
 		}
+	}
+	public static ClothingList getClothing(){
+		ClothingList clothing = new ClothingList();
+		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
+		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.LONGSLEEVET);
+		return clothing;
 	}
 }
