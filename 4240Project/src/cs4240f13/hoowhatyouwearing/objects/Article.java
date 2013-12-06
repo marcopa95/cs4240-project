@@ -4,34 +4,22 @@ package cs4240f13.hoowhatyouwearing.objects;
 public class Article {
 	
 	public enum ArticleType{
-		TOP, BOTTOMS, OUTERWEAR, SHOES;
+		TOP, BOTTOMS, OUTERWEAR, FOOTWEAR;
 	}
 
 	public enum Clothing{
-		TSHIRT, LONGSLEEVET, SWEATER, WINTERJACKET, RAINJACKET, PANTS, SHORTS, FLIPFLOPS, SHOES;
+		TSHIRT(1), LONGSLEEVET(2), // tops
+		SWEATER(3), WINTERJACKET(4), // outerwear
+		RAINJACKET(5), // special weather
+		SHORTS(6), PANTS(7), // bottoms
+		FLIPFLOPS(8), SHOES(9); // footwear
 		
 		private int offset;
 		
-		public void setOffset(){
-			if(this == TSHIRT)
-				offset = 1;
-			if(this == LONGSLEEVET)
-				offset = 2;
-			if(this == SWEATER)
-				offset = 3;
-			if(this == WINTERJACKET)
-				offset = 4;
-			if(this == RAINJACKET)
-				offset = 5;
-			if(this == PANTS)
-				offset = 6;
-			if(this == SHORTS)
-				offset = 7;
-			if(this == FLIPFLOPS)
-				offset = 8;
-			if(this == SHOES)
-				offset = 9;
+		Clothing (int offset) {
+			this.offset = offset;
 		}
+		
 		public int getOffset(){
 			return offset;
 		}
