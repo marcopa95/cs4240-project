@@ -7,10 +7,10 @@ import cs4240f13.hoowhatyouwearing.objects.Article.ArticleType;
 
 public class ClothingManager {
 
-	public static ArrayList<Article> determineOutfit(int highTemp, int lowTemp, int centralTemp, boolean isRaining, ClothingList clothingList) {
+	public static ArrayList<Article> determineOutfit(double highTemp, double lowTemp, int centralTemp, boolean isRaining, ClothingList clothingList) {
 		boolean isWearingOuterwear = false;
 		Article raingear = null;
-		int topOffsetTemp = 0;
+		double topOffsetTemp = 0;
 		ArrayList<Article> retList = new ArrayList<Article>();
 		ArrayList<Article> tops = new ArrayList<Article>();
 		ArrayList<Article> bottoms = new ArrayList<Article>();
@@ -114,24 +114,6 @@ public class ClothingManager {
 	private static ArrayList<Article> sortClothing(ArrayList<Article> articleList) {
 		Collections.sort(articleList);
 		return articleList;
-	}
-	
-	public static void main(String[] args) {
-		ClothingList clothing = new ClothingList();
-		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
-		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.LONGSLEEVET);
-		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.SWEATER);
-		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.WINTERJACKET);
-		clothing.addClothing(Article.ArticleType.RAINGEAR, Article.Clothing.RAINJACKET);
-		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.SHORTS);
-		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.PANTS);
-		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.FLIPFLOPS);
-		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.SHOES);
-		
-		ArrayList<Article> testList = ClothingManager.determineOutfit(60, 10, 80, false, clothing);
-		for (Article a : testList) {
-			System.out.println(a.getArticle().name());
-		}
 	}
 
 }

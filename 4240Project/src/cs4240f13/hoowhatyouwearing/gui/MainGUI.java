@@ -2,22 +2,23 @@ package cs4240f13.hoowhatyouwearing.gui;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextArea;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import cs4240f13.hoowhatyouwearing.RequestParser;
 import cs4240f13.hoowhatyouwearing.URLBuilder;
 import cs4240f13.hoowhatyouwearing.objects.Article;
+import cs4240f13.hoowhatyouwearing.objects.ClothingList;
+import cs4240f13.hoowhatyouwearing.objects.ClothingManager;
 import cs4240f13.hoowhatyouwearing.objects.User;
-import cs4240f13.hoowhatyouwearing.utility.XmlBuilder;
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 
 
 @SuppressWarnings("serial")
@@ -73,6 +74,18 @@ public class MainGUI extends JFrame {
 	private void initialize() throws UnsupportedEncodingException{
 		User user = User.getContext();
 		user.update();
+		
+		ClothingList clothing = new ClothingList();
+		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT);
+		clothing.addClothing(Article.ArticleType.TOP, Article.Clothing.LONGSLEEVET);
+		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.SWEATER);
+		clothing.addClothing(Article.ArticleType.OUTERWEAR, Article.Clothing.WINTERJACKET);
+		clothing.addClothing(Article.ArticleType.RAINGEAR, Article.Clothing.RAINJACKET);
+		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.SHORTS);
+		clothing.addClothing(Article.ArticleType.BOTTOMS, Article.Clothing.PANTS);
+		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.FLIPFLOPS);
+		clothing.addClothing(Article.ArticleType.FOOTWEAR, Article.Clothing.SHOES);
+		
 		strCity =  user.getLocation(); //SettingsGUI.getInstance().getCity();
 		settingsUnits = user.getTemperatureUnit().getApiKeyword(); //SettingsGUI.getInstance().getUnits();
 		forecastURL = URLBuilder.buildForecastURL(strCity, settingsUnits);
@@ -83,6 +96,14 @@ public class MainGUI extends JFrame {
 		strTodaysHigh = RequestParser.getTodaysHigh(descURL);
 		strTodaysLow = RequestParser.getTodaysLow(descURL);
 		
+		StringBuilder clothesList = new StringBuilder();
+		ArrayList<Article> articles = ClothingManager.determineOutfit(Double.parseDouble(strTodaysHigh), Double.parseDouble(strTodaysLow),
+				90, strDesc.contains("rain"), clothing);
+		for (int i = 0; i < articles.size(); i++) {
+			if (i > 0) clothesList.append("\n");
+			clothesList.append(articles.get(i).getArticle().name());
+		}
+		
 		setTitle("HooWhat You Wearing?");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 755, 542);
@@ -92,11 +113,11 @@ public class MainGUI extends JFrame {
 		contentPane.setLayout(null);
 		
 		JLabel lblTodaysWeather = new JLabel("Today's weather for:");
-		lblTodaysWeather.setBounds(30, 11, 124, 14);
+		lblTodaysWeather.setBounds(30, 11, 144, 14);
 		contentPane.add(lblTodaysWeather);
 		
 		JLabel lblCity = new JLabel(strCity);
-		lblCity.setBounds(164, 11, 91, 14);
+		lblCity.setBounds(186, 11, 91, 14);
 		contentPane.add(lblCity);
 		
 		JLabel lblCurrentTemp = new JLabel(strCurrentTemp);
@@ -150,11 +171,11 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblDayThree);
 		
 		JLabel lblYouShouldWear = new JLabel("You should wear:");
-		lblYouShouldWear.setBounds(556, 11, 104, 14);
+		lblYouShouldWear.setBounds(556, 11, 128, 14);
 		contentPane.add(lblYouShouldWear);
 		
-		JLabel lblclothingToWear = new JLabel(SettingsGUI.getClothing().getClothing(Article.ArticleType.TOP, Article.Clothing.TSHIRT));
-		lblclothingToWear.setBounds(531, 39, 198, 48);
+		JTextArea lblclothingToWear = new JTextArea(clothesList.toString());
+		lblclothingToWear.setBounds(531, 37, 198, 73);
 		contentPane.add(lblclothingToWear);
 		
 		JLabel lblOneHigh = new JLabel(getLowHighTemp(1,"max",forecastURL));
@@ -217,11 +238,11 @@ public class MainGUI extends JFrame {
 		contentPane.add(btnSettings);
 		
 		JLabel lblTodaysHigh = new JLabel("Today's high:");
-		lblTodaysHigh.setBounds(262, 39, 77, 14);
+		lblTodaysHigh.setBounds(251, 39, 88, 14);
 		contentPane.add(lblTodaysHigh);
 		
 		JLabel lblTodaysLow = new JLabel("Today's low:");
-		lblTodaysLow.setBounds(261, 64, 79, 14);
+		lblTodaysLow.setBounds(258, 64, 82, 14);
 		contentPane.add(lblTodaysLow);
 		
 		JLabel lblTodaysHighUnits = new JLabel(strUnits);
