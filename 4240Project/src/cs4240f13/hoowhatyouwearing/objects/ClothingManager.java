@@ -54,13 +54,13 @@ public class ClothingManager {
 		
 		if (retList.size() == 0) {
 			isWearingOuterwear = true;
-			loops:
+			ingbad:
 			for(Article out : outerwear) {
 				for (Article top : tops) {
 					if (centralTemp - top.getArticle().getOffset() - out.getArticle().getOffset() < lowTemp) {
 						retList.add(top);
 						retList.add(out);
-						break loops;
+						break ingbad;
 					}
 				}
 			}
