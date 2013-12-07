@@ -3,8 +3,6 @@ package cs4240f13.hoowhatyouwearing.objects;
 import java.util.ArrayList;
 import java.util.Collections;
 
-import cs4240f13.hoowhatyouwearing.objects.Article.ArticleType;
-
 public class ClothingManager {
 
 	public static ArrayList<Article> determineOutfit(double highTemp, double lowTemp, int centralTemp, boolean isRaining, ClothingList clothingList) {
