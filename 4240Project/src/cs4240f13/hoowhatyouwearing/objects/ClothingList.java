@@ -63,17 +63,7 @@ public class ClothingList {
 	public ArrayList<Article> getClothes() {
 		return array;
 	}
-	public static void main(String[] args) {
-		ClothingList clothes = new ClothingList();
-		
-		clothes.addClothing(ArticleType.TOP, Clothing.TSHIRT);
-		clothes.addClothing(ArticleType.TOP, Clothing.LONGSLEEVET);
-		
-		if(clothes.containsClothing(ArticleType.OUTERWEAR, Clothing.SWEATER))
-			System.out.println("TRUE");
-		else
-			System.out.println("FALSE");
-		}
-	}
+	
+}
 
 
