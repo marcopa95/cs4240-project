@@ -57,7 +57,7 @@ public class SettingsGUI extends JFrame {
 		
 		setTitle("Settings");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 536, 335);
+		setBounds(100, 100, 683, 442);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		contentPane.setLayout(null);
@@ -136,7 +136,7 @@ public class SettingsGUI extends JFrame {
 				}
 			}
 		});
-		btnOk.setBounds(408, 263, 89, 23);
+		btnOk.setBounds(475, 330, 89, 23);
 		contentPane.add(btnOk);
 		
 		ButtonGroup buttonGroup = new ButtonGroup();
@@ -145,75 +145,75 @@ public class SettingsGUI extends JFrame {
 		
 
 		
-		JTextArea textArea = new JTextArea();
+		final JTextArea textArea = new JTextArea();
 		textArea.setBounds(10, 113, 188, 173);
 		contentPane.add(textArea);
 		textArea.setEditable(false);
 		textArea.setText(clothing.listClothing());
 		
 		final JCheckBox chckbxTshirt = new JCheckBox("T-shirt");
-		chckbxTshirt.setBounds(204, 114, 97, 23);
+		chckbxTshirt.setBounds(237, 140, 97, 23);
 		contentPane.add(chckbxTshirt);
 		
 		
 		final JCheckBox chckbxLongSleeveT = new JCheckBox("Long Sleeve T");
-		chckbxLongSleeveT.setBounds(204, 138, 97, 23);
+		chckbxLongSleeveT.setBounds(238, 161, 118, 23);
 		contentPane.add(chckbxLongSleeveT);
 		
 		JLabel lblTops = new JLabel("Tops");
-		lblTops.setBounds(208, 102, 46, 14);
+		lblTops.setBounds(216, 118, 46, 14);
 		contentPane.add(lblTops);
 		
 		JLabel lblOuterwear = new JLabel("Outerwear");
-		lblOuterwear.setBounds(208, 165, 62, 14);
+		lblOuterwear.setBounds(216, 191, 62, 14);
 		contentPane.add(lblOuterwear);
 		
 		final JCheckBox chckbxSweater = new JCheckBox("Sweater");
-		chckbxSweater.setBounds(204, 179, 97, 23);
+		chckbxSweater.setBounds(237, 205, 97, 23);
 		contentPane.add(chckbxSweater);
 		
 		final JCheckBox chckbxWinterJacket = new JCheckBox("Winter Jacket");
-		chckbxWinterJacket.setBounds(204, 205, 97, 23);
+		chckbxWinterJacket.setBounds(238, 231, 118, 23);
 		contentPane.add(chckbxWinterJacket);
 		
 		JLabel lblRainGear = new JLabel("Rain Gear");
-		lblRainGear.setBounds(208, 231, 62, 14);
+		lblRainGear.setBounds(216, 261, 77, 14);
 		contentPane.add(lblRainGear);
 		
 		final JCheckBox chckbxRainJacket = new JCheckBox("Rain Jacket");
-		chckbxRainJacket.setBounds(204, 242, 97, 23);
+		chckbxRainJacket.setBounds(238, 282, 108, 23);
 		contentPane.add(chckbxRainJacket);
 		
 		JLabel lblBottoms = new JLabel("Bottoms");
-		lblBottoms.setBounds(307, 102, 46, 14);
+		lblBottoms.setBounds(416, 118, 63, 14);
 		contentPane.add(lblBottoms);
 		
 		final JCheckBox chckbxPants = new JCheckBox("Pants");
-		chckbxPants.setBounds(303, 114, 108, 23);
+		chckbxPants.setBounds(425, 138, 108, 23);
 		contentPane.add(chckbxPants);
 		
 		final JCheckBox chckbxShorts = new JCheckBox("Shorts");
-		chckbxShorts.setBounds(303, 138, 97, 23);
+		chckbxShorts.setBounds(425, 161, 97, 23);
 		contentPane.add(chckbxShorts);
 		
 		JLabel lblFootwear = new JLabel("Footwear");
-		lblFootwear.setBounds(307, 165, 46, 14);
+		lblFootwear.setBounds(416, 197, 76, 14);
 		contentPane.add(lblFootwear);
 		
 		final JCheckBox chckbxFlipflops = new JCheckBox("Flip-Flops");
-		chckbxFlipflops.setBounds(303, 179, 97, 23);
+		chckbxFlipflops.setBounds(425, 219, 97, 23);
 		contentPane.add(chckbxFlipflops);
 		
 		final JCheckBox chckbxShoes = new JCheckBox("Shoes");
-		chckbxShoes.setBounds(303, 205, 97, 23);
+		chckbxShoes.setBounds(425, 241, 97, 23);
 		contentPane.add(chckbxShoes);
 		
 		JLabel lblAddremoveClothes = new JLabel("Add/Remove Clothes");
-		lblAddremoveClothes.setBounds(208, 87, 110, 14);
+		lblAddremoveClothes.setBounds(216, 93, 139, 14);
 		contentPane.add(lblAddremoveClothes);
 		
 		JButton btnSubmitClothes = new JButton("Submit Clothes");
-		btnSubmitClothes.setBounds(307, 231, 120, 23);
+		btnSubmitClothes.setBounds(416, 282, 120, 23);
 		contentPane.add(btnSubmitClothes);
 		btnSubmitClothes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -245,6 +245,7 @@ public class SettingsGUI extends JFrame {
 					if(chckbxShoes.isSelected() && !(clothing.containsClothing(ArticleType.FOOTWEAR, Clothing.SHOES))){
 						clothing.addClothing(ArticleType.FOOTWEAR, Clothing.SHOES);
 					}
+					textArea.setText(clothing.listClothing());
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
