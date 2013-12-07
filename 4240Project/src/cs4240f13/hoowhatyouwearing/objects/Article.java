@@ -8,8 +8,8 @@ public class Article implements Comparable {
 	}
 
 	public enum Clothing{
-		TSHIRT(30), LONGSLEEVET(40), // tops
-		SWEATER(40), WINTERJACKET(60), // outerwear
+		TSHIRT(20), LONGSLEEVET(30), // tops
+		SWEATER(30), WINTERJACKET(40), // outerwear
 		RAINJACKET(30), // special weather
 		SHORTS(30), PANTS(50), // bottoms
 		FLIPFLOPS(10), SHOES(50); // footwear

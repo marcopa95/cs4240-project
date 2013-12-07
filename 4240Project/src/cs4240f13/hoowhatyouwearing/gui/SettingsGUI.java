@@ -15,7 +15,6 @@ import java.awt.event.ActionEvent;
 
 import javax.swing.JTextArea;
 
-import cs4240f13.hoowhatyouwearing.objects.Article;
 import cs4240f13.hoowhatyouwearing.objects.Article.ArticleType;
 import cs4240f13.hoowhatyouwearing.objects.Article.Clothing;
 import cs4240f13.hoowhatyouwearing.objects.ClothingList;

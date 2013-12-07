@@ -64,6 +64,8 @@ public class ClothingManager {
 					}
 				}
 			}
+			retList.add(tops.get(tops.size()-1));
+			retList.add(outerwear.get(outerwear.size()-1));
 		}
 		
 		for(Article bottom : bottoms) {
