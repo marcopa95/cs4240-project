@@ -2,9 +2,6 @@ package cs4240f13.hoowhatyouwearing.objects;
 
 import java.util.ArrayList;
 
-import cs4240f13.hoowhatyouwearing.objects.Article.ArticleType;
-import cs4240f13.hoowhatyouwearing.objects.Article.Clothing;
-
 public class ClothingList {
 	
 	private ArrayList<Article> array = new ArrayList<Article>();
