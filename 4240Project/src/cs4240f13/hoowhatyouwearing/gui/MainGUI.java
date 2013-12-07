@@ -175,6 +175,7 @@ public class MainGUI extends JFrame {
 		contentPane.add(lblYouShouldWear);
 		
 		JTextArea lblclothingToWear = new JTextArea(clothesList.toString());
+		lblclothingToWear.setEditable(false);
 		lblclothingToWear.setBounds(531, 37, 198, 73);
 		contentPane.add(lblclothingToWear);
 		
