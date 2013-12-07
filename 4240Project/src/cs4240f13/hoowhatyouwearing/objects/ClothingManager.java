@@ -83,7 +83,7 @@ public class ClothingManager {
 		}
 		
 		// Determine if outerwear is needed
-		if (!isWearingOuterwear) {
+		if (!isWearingOuterwear && topOffsetTemp > lowTemp) {
 			for(Article out : outerwear) {
 				if (topOffsetTemp - out.getArticle().getOffset() < lowTemp) {
 					retList.add(out);
